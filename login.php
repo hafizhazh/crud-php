@@ -11,7 +11,13 @@ if (isset($_POST['login']))
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
 
-    //check
+    $secret_key = "6LfqczcqAAAAAIKTU7mfZVwJ5CfeDt3ZK8uq4MLE";
+
+    $verifikasi = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='. $secret_key . '&response=' .
+    $_POST['g-recaptcha-response']);
+    $response   = json_decode($verifikasi);
+
+if($response ->success){
     $result = mysqli_query($db, "SELECT * FROM akun WHERE username = '$username'");
 
     //jika ada usernya
@@ -25,19 +31,21 @@ if (isset($_POST['login']))
             $_SESSION['id_akun']    =$hasil['id_akun'];
             $_SESSION['nama']       =$hasil['nama'];
             $_SESSION['username']   =$hasil['username'];
-            $_SESSION['email']      =$hasil['email'];
             $_SESSION['level']      =$hasil['level'];
             //jika login benar mengarah ke index
             header("location: index.php");
             exit;
-        }
+        }else{
+        $error = true;
     }
-    //jika tidak ada usernya
-    $error = true;
+
+    }
+  }else{
+  $errorRecaptcha = true;
+  }
+    
 }
 ?>
-
-
 
 
 <!doctype html>
@@ -94,6 +102,13 @@ if (isset($_POST['login']))
     </div>
     <?php endif;?>
 
+    
+   <?php if (isset($errorRecaptcha)): ?>
+     <div class="alert alert-danger text-center">
+        <b>recap salah</b>
+    </div>
+    <?php endif;?>
+
     <div class="form-floating">
       <input type="text" name="username" class="form-control" id="floatingInput" placeholder="username" required>
       <label for="floatingInput">username</label>
@@ -102,11 +117,18 @@ if (isset($_POST['login']))
       <input type="password" name="password"  class="form-control" id="floatingPassword" placeholder="Password.." required>
       <label for="floatingPassword">Password</label>
     </div>
+
+    <div class="mb-3">
+      <div class="g-recaptcha" data-sitekey="6LfqczcqAAAAAK_lEssdfTm9YMJES9fY4tTVIOWA">
+      </div>
+    </div>
+
     <button class="w-100 btn btn-lg btn-primary" type="submit" name="login">Login</button>
     <p class="mt-5 mb-3 text-muted"> hafizh &copy; <?= date('Y')?></p>
   </form>
 </main>
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 
     
   </body>

@@ -129,9 +129,9 @@ $data_mahasiswa = select("SELECT * FROM mahasiswa ORDER BY id_mahasiswa DESC");
         <a href="download-pdf-mahasiswa.php" class="btn btn-danger mb-1"><i class="fas fa-file-pdf"></i> Download Pdf</a>
 
                 
-         <table class="table table-border table-striped mt-3 mx-auto" id="table">
+         <table id="serverside" class="table table-border table-striped mt-3 mx-auto">
           <thead>
-            <tr class="text-center">
+            <tr>
               <th>no</th>
               <th>nama</th>
               <th>prodi</th>
@@ -141,23 +141,10 @@ $data_mahasiswa = select("SELECT * FROM mahasiswa ORDER BY id_mahasiswa DESC");
             </tr>
           </thead>
           <tbody>
-          <?php $no = 1;?>
-          <?php foreach ($data_mahasiswa as $mahasiswa): ?>
-          <tr>
-            <td><?= $no++; ?></td>
-            <td><?= $mahasiswa ['nama'];?></td>
-            <td><?= $mahasiswa ['prodi'];?></td>
-            <td><?= $mahasiswa ['jk'];?></td>
-            <td><?= $mahasiswa ['telepon'];?></td>
-            <td class="text-center" width=19%>
-               <a href="detail-mahasiswa.php?id_mahasiswa=<?=$mahasiswa['id_mahasiswa'];?>" class="btn btn-secondary btn-sm"><i class="far fa-eye"></i> detail</a> 
-               <a href="ubah-mahasiswa.php?id_mahasiswa=<?= $mahasiswa['id_mahasiswa'];?>" class="btn btn-success btn-sm"><i class="fas fa-edit"></i>  ubah</a> 
-               <a href="hapus-mahasiswa.php?id_mahasiswa=<?= $mahasiswa['id_mahasiswa'];?>" class="btn btn-danger btn-sm" onclick="return confirm('yakinn ni boy');"><i class="fas fa-trash"></i> hapus</a> 
-            </td>
-          </tr>
-          <?php endforeach; ?>
+          
           </tbody>
       </table>
+      
            </div>
       </div>
       </div>

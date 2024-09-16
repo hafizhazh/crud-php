@@ -15,8 +15,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="assets-template/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="assets-template/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -63,11 +61,7 @@
       <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
       <script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap5.js"></script>
 
-<script>
-  $(function () {
-    $('#table').DataTable();
-  });
-</script>
+
 <script src="https://cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
       <script>
         CKEDITOR.replace( 'alamat',{
@@ -75,6 +69,35 @@
           filebrowserUploadUrl: 'assets/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=files',
           height:'400px'
         });
+      </script>
+
+
+<script>
+  $(function () {
+    $('#table').DataTable();
+  });
+</script>
+
+      <script>
+  $(document).ready(function(){
+    $('#serverside').DataTable({
+    ajax:{
+      "url":"mahasiswa-serverside.php?action=table_data",
+      "dataType":"json",
+      "type":"POST"
+    },
+    columns:[
+      {"data":"no"},
+      {"data":"nama"},
+      {"data":"prodi"},
+      {"data":"jk"},
+      {"data":"telepon"},
+      {"data":"aksi"},
+    ],
+    processing: true,
+    serverSide: true
+ });
+});
       </script>
 </body>
 </html>

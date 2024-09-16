@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect('localhost', 'root', 'root', 'crud-php');
+$db = mysqli_connect('localhost', 'root', '', 'kuntul');
 
 //cek koneksi
 
